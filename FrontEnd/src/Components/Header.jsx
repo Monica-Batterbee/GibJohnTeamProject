@@ -1,7 +1,9 @@
 function Header() {
     return (
     <>
-      <header className="bg-blue-100 w-screen p-3"> Header </header>    
+      <header className="shadow-md w-screen p-3">
+        <p>GibJohn Tutoring</p>
+      </header>    
     </>
     );
 }
