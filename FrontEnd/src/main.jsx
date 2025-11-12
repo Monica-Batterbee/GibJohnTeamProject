@@ -7,6 +7,7 @@ import Home from './Views/Home'
 import Footer from './Components/Footer'
 import SidePanel from './Components/SidePanel'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div className="flex flex-col h-screen">
