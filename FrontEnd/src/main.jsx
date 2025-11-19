@@ -6,7 +6,7 @@ import Header from './Components/Header'
 import Home from './Views/Home'
 import Footer from './Components/Footer'
 import SidePanel from './Components/SidePanel'
-
+import SignIn from './Compontnets/SignUpPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
