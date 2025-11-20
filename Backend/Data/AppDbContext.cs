@@ -10,6 +10,7 @@ namespace Backend.Data
         {
         }
 
-        public DbSet<Course> Courses { get; set; }
+        public DbSet<Course> Course { get; set; }
+        public DbSet<Teacher> Teacher { get;  set; }
     }
 }

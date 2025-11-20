@@ -19,7 +19,10 @@ function Home() {
     <>
     <div className="flex flex-col w-full">
     <div className="flex justify-between p-3 pl-8 w-full">
+
         <h1> Test 2 </h1>
+        <h1> Your Courses </h1>
+
         <Browse className=""/>
     </div>
 

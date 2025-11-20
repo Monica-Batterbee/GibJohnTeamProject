@@ -38,7 +38,7 @@ namespace Backend.Migrations
 
                     b.HasKey("CourseID");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 #pragma warning restore 612, 618
         }
