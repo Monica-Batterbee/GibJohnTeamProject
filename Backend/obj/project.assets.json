@@ -4781,11 +4781,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\Backend.csproj",
+      "projectUniqueName": "C:\\Users\\bat24002645\\GibJohnTeamProject\\Backend\\Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\Backend.csproj",
+      "projectPath": "C:\\Users\\bat24002645\\GibJohnTeamProject\\Backend\\Backend.csproj",
       "packagesPath": "C:\\Users\\bat24002645\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\obj\\",
+      "outputPath": "C:\\Users\\bat24002645\\GibJohnTeamProject\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

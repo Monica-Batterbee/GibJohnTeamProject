@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\Backend.csproj": {}
+    "C:\\Users\\bat24002645\\GibJohnTeamProject\\backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\Backend.csproj": {
+    "C:\\Users\\bat24002645\\GibJohnTeamProject\\backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\bat24002645\\GibJohnTeamProject\\backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\bat24002645\\GibJohnTeamProject\\backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\bat24002645\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bat24002645\\Documents\\GitHub\\GibJohnTeamProject\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\bat24002645\\GibJohnTeamProject\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
