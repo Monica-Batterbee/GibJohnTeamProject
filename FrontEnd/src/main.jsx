@@ -55,6 +55,7 @@ import Home from './Views/Home'
 import Footer from './Components/Footer'
 import SidePanel from './Components/SidePanel'
 import Assingnments from './Views/Assignments'
+import SignUpPage from './Components/SignUpPage'
 
 function Main() {
   const [currentPage, setPage] = useState('Home');
