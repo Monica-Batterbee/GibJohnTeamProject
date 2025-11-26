@@ -55,7 +55,7 @@ import Home from './Views/Home'
 import Footer from './Components/Footer'
 import SidePanel from './Components/SidePanel'
 import Assingnments from './Views/Assignments'
-import SignUpPage from './Components/SignUpPage'
+import SignUp from './Components/LoginPage'
 
 function Main() {
   const [currentPage, setPage] = useState('Home');
@@ -73,8 +73,9 @@ function Main() {
       <Header />
 
       <div className="flex grow flex-row">
-        <SidePanel setPage={setPage} />
-        <CurrentPageComponent />
+        {/* <SidePanel setPage={setPage} />
+        <CurrentPageComponent /> */}
+        <SignUp />
       </div>
 
       <Footer />

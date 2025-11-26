@@ -5,7 +5,8 @@ const SignIn = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showLogin, setShowLogin] = useState(false);
+    const [option, setOption ]= useState('Sign up');
+    const [user, setUser] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,32 +17,27 @@ const SignIn = () => {
         setShowLogin(true);
     };
 
-
-    if (showLogin) {
-        return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh', backgroundColor: '#f8f9fa' }}>
-                <div style={{ width: '200%', maxWidth: '400px', padding: '20px', border: '2px solid #ccc', borderRadius: '8px' }}>
-                    <h1 style={{ textAlign: 'center' }}>Login</h1>
-
-                    <label style={{ display: 'block', marginBottom: '5px' }}>Email</label>
-                    <input type="email" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginBottom: '15px' }} />
-
-                    <label style={{ display: 'block', marginBottom: '5px' }}>Password</label>
-                    <input type="password" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginBottom: '20px' }} />
-
-                    <button style={{ width: '100%', padding: '10px', backgroundColor: '#00FF85', color: '#020202', border: 'none', borderRadius: '4px'   }}>
-                        
-                        Login
-                    </button>
-                </div>
-            </div>
-        );
-    }
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh', backgroundColor: '#f8f9fa' }}>
                 <form onSubmit={handleSubmit} style={{ width: '200%', maxWidth: '400px', padding: '20px', border: '2px solid #020202', borderRadius: '8px' }}>
-                    <h1 style={{ textAlign: 'center' }}>Sign In</h1>
+                    <h1 style={{ textAlign: 'center' }}>{option}</h1>
 
+                    {option === 'Sign up' &&
+                    <div className='flex flex-row w-full items-center justify-center p-3'>
+                        <p className='mr-2'>Already have an account?</p>
+                        <a className='cursor-pointer' onClick={() => setOption('Log in')}>Log in</a>
+                    </div>
+                    }
+
+                    {option === 'Log in' &&
+                    <div className='flex flex-row w-full items-center justify-center p-3'>
+                        <p className='mr-2'>Dont have an account?</p>
+                        <a className='cursor-pointer' onClick={() => setOption('Sign up')}>Sign Up</a>
+                    </div>
+                    }
+
+                    {option === 'Sign up' &&
+                    <div>
                     <label htmlFor="name" style={{ display: 'block', marginBottom: '5px' }}>Name</label>
                     <input
                         type="text"
@@ -50,7 +46,7 @@ const SignIn = () => {
                         onChange={(e) => setName(e.target.value)}
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #020202', marginBottom: '15px' }}
                         required
-                    />
+                    /></div>}
 
                     <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>Email</label>
                     <input
@@ -71,9 +67,33 @@ const SignIn = () => {
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #020202', marginBottom: '20px' }}
                         required
                     />
+                        
+
+   {option === 'Sign up' && (<div className="flex justify-between mb-5">
+    <div>
+      <input
+        type="checkbox"
+        checked={user === 'Teacher'}
+        onChange={() => setUser('Teacher')}
+        className="w-4 h-4 scale-150"
+      />
+      <label className="mx-3">I am a teacher</label>
+    </div>
+    <div>
+      <input
+        type="checkbox"
+        checked={user === 'Student'}
+        onChange={() => setUser('Student')}
+        className="w-4 h-4 scale-150"
+      />
+      <label className="ml-3">I am a student</label>
+    </div>
+    </div>
+    )}
+
 
                     <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#6DBCD1', color: '#020202', border: '1px solid #020202', borderRadius: '4px', cursor: 'pointer' }}>
-                        Sign In
+                       {option}
                     </button>
                 </form>
             </div>

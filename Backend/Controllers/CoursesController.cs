@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
+using Backend.Models;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -20,11 +21,11 @@ public class CoursesController : ControllerBase
         return Ok(courses);
     }
 
-    // [HttpPost]
-    // public async Task<IActionResult> AddCourse([FromBody] Course course)
-    // {
-    //     _context.Courses.Add(course);
-    //     await _context.SaveChangesAsync();
-    //     return CreatedAtAction(nameof(GetCourses), new { id = course.CourseID }, course);
-    // }
+    [HttpPost]
+    public async Task<IActionResult> AddCourse([FromBody] Course course)
+    {
+        _context.Course.Add(course);
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetCourses), new { id = course.CourseID }, course);
+    }
 }
