@@ -94,7 +94,7 @@ export default SignIn;
 //add links at the bottom of both page using image links
 //make sure that theres validation for this page
 //link up both pages to the database
-//
+// allow them to press a link that takes them to the login page 
 
 
 
