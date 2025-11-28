@@ -1,8 +1,8 @@
 namespace Backend.Models
 {
-    public class Teacher
+    public class Student
     {
-        public int TeacherID { get; set; }
+        public int StudentID { get; set; }
         public string Fname { get; set; } = string.Empty;
         public string? Sname { get; set; }
         public string? Email { get; set; }

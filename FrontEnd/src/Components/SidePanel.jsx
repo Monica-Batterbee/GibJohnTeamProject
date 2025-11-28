@@ -7,7 +7,7 @@ function Panel({setPage}) {
     const toolTipText = ["Assingnments","Feedback Report","Rewards","Brainstorm and notes", "Games", "Progress", "chat"]
 
     const iconObject = {
-      'Assignments' : {class : "fa-book",
+      Assignments : {class : "fa-book",
                       text : "Assignments"},
 
       'Feedback' : {class : "fa-comment",
@@ -33,14 +33,14 @@ function Panel({setPage}) {
       const iconInfo = iconObject[iconKey];  // <-- get the actual object
     
       return (
-        <i
-          key={index}
-          className={`fa-solid ${iconInfo.class} text-xl text-gray-500 p-1 mb-3 cursor-pointer`}
-          data-tooltip-id="my-tooltip"
-          data-tooltip-content={iconInfo.text}
-          onClick={() => setPage(iconKey)}  // <-- sets the selected page
-        >
-        </i>
+      <i
+        key={index}
+        className={`fa-solid ${iconInfo.class} text-xl text-gray-500 p-1 mb-3 cursor-pointer`}
+        data-tooltip-id="my-tooltip"
+        data-tooltip-content={iconInfo.text}
+        onClick={() => setPage(iconKey)}   // <--- FIX
+      >
+</i>
       );
     });
 
