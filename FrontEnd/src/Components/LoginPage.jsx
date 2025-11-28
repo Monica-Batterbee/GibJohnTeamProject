@@ -69,52 +69,55 @@ function SignIn ({setLoggedIn,setCurrentUser,setRole}){
 
                     {option === 'Sign up' &&
                     <div className='flex flex-row w-full items-center justify-center p-3'>
-                        <p className='mr-2'>Already have an account?</p>
-                        <a className='cursor-pointer' onClick={() => setOption('Log in')}>Log in</a>
+                        <p className='mr-2 text-black'>Already have an account?</p>
+                        <a className='cursor-pointer text-black' onClick={() => setOption('Log in')}>Log in</a>
                     </div>
                     }
 
                     {option === 'Log in' &&
                     <div className='flex flex-row w-full items-center justify-center p-3'>
-                        <p className='mr-2'>Dont have an account?</p>
+                        <p className='mr-2 text-black'>Dont have an account?</p>
                         <a className='cursor-pointer' onClick={() => setOption('Sign up')}>Sign Up</a>
                     </div>
                     }
 
                     {option === 'Sign up' &&
                     <div>
-                    <label htmlFor="name" style={{ display: 'block', marginBottom: '5px' }}>Name</label>
+                    <label htmlFor="name" style={{ display: 'block', marginBottom: '5px' }} className='text-black'>Name</label>
                     <input
                         type="text"
                         id="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #020202', marginBottom: '15px' }}
+                        className='text-black'
                         required
                     /></div>}
 
-                    <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>Email</label>
+                    <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }} className='text-black'>Email</label>
                     <input
                         type="email"
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #020202', marginBottom: '15px' }}
+                        className='text-black'
                         required
                     />
 
-                    <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }}>Password</label>
+                    <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }} className='text-black'>Password</label>
                     <input
                         type="password"
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #020202', marginBottom: '20px' }}
+                        className='text-black'
                         required
                     />
                         
 
- <div className="flex justify-between mb-5">
+ <div className="flex justify-between mb-5 text-black">
     <div>
       <input
         type="checkbox"
@@ -122,7 +125,7 @@ function SignIn ({setLoggedIn,setCurrentUser,setRole}){
         onChange={() => setUser('Teacher')}
         className="w-4 h-4 scale-150"
       />
-      <label className="mx-3">I am a teacher</label>
+      <label className="mx-3 text-black">I am a teacher</label>
     </div>
     <div>
       <input
@@ -131,7 +134,7 @@ function SignIn ({setLoggedIn,setCurrentUser,setRole}){
         onChange={() => setUser('Student')}
         className="w-4 h-4 scale-150"
       />
-      <label className="ml-3">I am a student</label>
+      <label className="ml-3 text-black">I am a student</label>
     </div>
     </div>
     
