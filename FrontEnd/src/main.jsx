@@ -21,7 +21,7 @@ function Main() {
     // add more pages here
   };
 
-  // const CurrentPageComponent = pages[currentPage] || Home;
+  const CurrentPageComponent = pages[currentPage] || Home;
   if (loggedIn) {
     console.log("found User",currentUser);
     console.log("role",role);
