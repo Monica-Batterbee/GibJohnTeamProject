@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactApp", policy =>
-        policy.WithOrigins("http://localhost:5174") // React dev server URL
+        policy.WithOrigins("http://localhost:5173") // React dev server URL
               .AllowAnyHeader()
               .AllowAnyMethod());
 });

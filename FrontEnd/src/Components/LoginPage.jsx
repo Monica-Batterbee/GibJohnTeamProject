@@ -1,25 +1,70 @@
 import React, { useState } from 'react';
+import { getTeachers, postTeachers } from '../Services/TeacherService';
+import { getStudents, postStudents } from '../Services/StudentService';
+import { all } from 'axios';
 
-const SignIn = () => {
+function SignIn ({setLoggedIn,setCurrentUser,setRole}){
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [option, setOption ]= useState('Sign up');
     const [user, setUser] = useState('');
+    
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Name:', name);
-        console.log('Email:', email);
-        console.log('Password:', password);
+    async function handleSubmit(){
+        setRole(user);
 
-        setShowLogin(true);
+        if (option === 'Sign up') {
+            let [Fname,Sname] = name.split(" ")
+
+            let newUser = {
+                Fname : Fname,
+                Sname : Sname,
+                Email : email,
+                Password : password
+            }
+
+            if (user === 'Teacher') {
+                postTeachers(newUser);
+            }
+            else {
+                postStudents(newUser);    
+            }
+            setCurrentUser(newUser);
+            setLoggedIn(true);
+        } 
+
+        else {
+            if (user === 'Student') {
+                let allStudents = await getStudents();
+                const foundUser = allStudents.find( 
+                    (u) => u.email === email && u.password === password  
+            ); 
+            if (foundUser) {
+                setLoggedIn(() => true);
+                setCurrentUser(() => foundUser)
+            }
+            }
+            else {
+                let allTeachers = await getTeachers();
+                const foundUser = allTeachers.find( 
+                    (u) => u.email === email && u.password === password  
+                ); 
+                if (foundUser) {
+                    console.log("Found")
+                    setCurrentUser(() => foundUser)
+                    setLoggedIn(() => true);
+                }
+    
+            }
+         }
+
     };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh', backgroundColor: '#f8f9fa' }}>
-                <form onSubmit={handleSubmit} style={{ width: '200%', maxWidth: '400px', padding: '20px', border: '2px solid #020202', borderRadius: '8px' }}>
+                <div style={{ width: '200%', maxWidth: '400px', padding: '20px', border: '2px solid #020202', borderRadius: '8px' }}>
                     <h1 style={{ textAlign: 'center' }}>{option}</h1>
 
                     {option === 'Sign up' &&
@@ -69,7 +114,7 @@ const SignIn = () => {
                     />
                         
 
-   {option === 'Sign up' && (<div className="flex justify-between mb-5">
+ <div className="flex justify-between mb-5">
     <div>
       <input
         type="checkbox"
@@ -89,13 +134,14 @@ const SignIn = () => {
       <label className="ml-3">I am a student</label>
     </div>
     </div>
-    )}
+    
 
 
-                    <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#6DBCD1', color: '#020202', border: '1px solid #020202', borderRadius: '4px', cursor: 'pointer' }}>
-                       {option}
-                    </button>
-                </form>
+    <button type="submit" onClick={handleSubmit}
+    style={{ width: '100%', padding: '10px', backgroundColor: '#6DBCD1', color: '#020202', border: '1px solid #020202', borderRadius: '4px', cursor: 'pointer' }}>
+        {option}
+    </button>
+                </div>
             </div>
             );
         };
