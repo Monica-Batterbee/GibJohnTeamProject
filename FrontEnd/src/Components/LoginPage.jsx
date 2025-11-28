@@ -65,7 +65,7 @@ function SignIn ({setLoggedIn,setCurrentUser,setRole}){
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh', backgroundColor: '#f8f9fa' }}>
                 <div style={{ width: '200%', maxWidth: '400px', padding: '20px', border: '2px solid #020202', borderRadius: '8px' }}>
-                    <h1 style={{ textAlign: 'center' }}>{option}</h1>
+                    <h1 style={{ textAlign: 'center' }} className='text-black'>{option}</h1>
 
                     {option === 'Sign up' &&
                     <div className='flex flex-row w-full items-center justify-center p-3'>
