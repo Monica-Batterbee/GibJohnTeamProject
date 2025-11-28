@@ -20,7 +20,7 @@ function Home() {
     <div className="flex flex-col w-full">
     <div className="flex justify-between p-3 pl-8 w-full">
 
-        <h1> Your Courses </h1>
+        <h1 className="text-black"> Your Courses </h1>
 
         <Browse className=""/>
     </div>
@@ -30,7 +30,7 @@ function Home() {
         {courses.map((course) => (
           <li key={course.courseID}>
             {names.includes(course.courseName) && <div className="flex flex-col p-2 bg-blue-100 rounded-md mr-4 justify-center items-center shadow-md cursor-pointer">
-                  <b className="p-1">{course.courseName}</b>
+                  <b className="p-1 text-black">{course.courseName}</b>
                   <img className="w-52 h-52 rounded-sm" src={course.courseURL} />
                 </div>}
           </li>
