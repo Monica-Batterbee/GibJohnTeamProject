@@ -1,11 +1,71 @@
-function Assignments({currentUser,role}) {
+import { useState, useEffect } from "react";
+import { getTasks, postTask } from "../Services/TaskService";
+import { all } from "axios";
+
+function Assignments({ currentUser, role }) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  console.log("currentUser:", currentUser);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const currentTasks = await getTasks();
+      const teacherTasks = currentTasks.filter((t) => t.teacherID === currentUser.teacherID);
+      setTasks(teacherTasks);
+    };
+
+    fetchTasks();
+  }, []);
+
+  // Log every time tasks updates
+  useEffect(() => {
+    console.log("Updated tasks state:", tasks);
+  }, [tasks]);
+
+
+  const showTasks = tasks.map((task) => (
+    <div key={task.taskID} className="p-2 my-2 rounded-md bg-blue-100 flex flex-row justify-between">
+      <div>
+          <h3 className="text-2xl">{task.name}</h3>
+          <div className="bg-white items-center justify-center p-2 rounded-md mt-3">
+            <p>{task.description}</p>
+          </div>      
+      </div>
+      <div className="flex justify-center items-center ml-5">
+        <button>Assign Student</button>
+      </div>
+    </div>
+
+  ));
+
     return (
       <>
+      <div className="flex flex-col p-3 ">
       <h1>Assignments</h1>
-      
+          {role==='Teacher' && <div className="flex flex-row">
+          <div className="flex flex-col border border-gray-500 p-3 rounded-md mt-4 mr-5">
+            <h2 className="text-4xl mb-3">Create New Task</h2>
+            <label className="text-xl">Task Name</label>
+            <input placeholder="Enter the name of the task" value={name} className="border border-gray-300 p-2" onChange={(e) => setName(e.target.value)}/>
+
+            <label className="mt-3 text-xl">Task Description</label>
+            <textarea placeholder="Enter a description for the task" value={description} className="border border-gray-300 p-2" rows={8} cols={75} onChange={(e) => setDescription(e.target.value)}/>
+
+            <button className="bg-blue-100 p-2 mt-3 rounded-md" 
+            onClick={() => postTask({teacherID : currentUser.teacherID, name : name, description : description})}>Add</button>
+          </div>
+          {tasks.length > 0 && <div>
+          <h2 className="text-4xl"> Current Tasks </h2>
+          {showTasks}
+          </div>}
+          </div>}
+          </div>
       </>
     );
-}
+  }
+
 
 
   export default Assignments

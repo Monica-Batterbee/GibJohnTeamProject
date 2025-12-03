@@ -2,10 +2,6 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 function Panel({setPage}) {
 
-
-    const iconClasses = ["fa-book","fa-comment","fa-trophy","fa-pen","fa-gamepad","fa-bars-progress","fa-comments"]
-    const toolTipText = ["Assingnments","Feedback Report","Rewards","Brainstorm and notes", "Games", "Progress", "chat"]
-
     const iconObject = {
       'Assignments' : {class : "fa-book",
                       text : "Assignments"},
