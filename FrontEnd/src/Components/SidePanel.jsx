@@ -7,7 +7,7 @@ function Panel({setPage}) {
     const toolTipText = ["Assingnments","Feedback Report","Rewards","Brainstorm and notes", "Games", "Progress", "chat"]
 
     const iconObject = {
-      Assignments : {class : "fa-book",
+      'Assignments' : {class : "fa-book",
                       text : "Assignments"},
 
       'Feedback' : {class : "fa-comment",

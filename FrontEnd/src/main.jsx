@@ -16,12 +16,12 @@ function Main() {
   const [role, setRole] = useState('');
 
   const pages = {
-    Home: Home,
-    Assignments: Assignments
-    // add more pages here
+    'Home': Home,
+    'Assignments': Assignments
   };
 
-  const CurrentPageComponent = pages[currentPage] || Home;
+  let CurrentPageComponent = pages[currentPage];
+
   if (loggedIn) {
     console.log("found User",currentUser);
     console.log("role",role);
@@ -34,7 +34,7 @@ function Main() {
       <div className="flex grow flex-row">
  
         <SidePanel setPage={setPage} />
-        <CurrentPageComponent/>
+        <CurrentPageComponent currentUser={currentUser} role={role}/>
 
       </div>
 
