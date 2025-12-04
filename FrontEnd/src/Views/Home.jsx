@@ -22,7 +22,7 @@ function Home() {
 
         <h1 className="text-black"> Your Courses </h1>
 
-        <Browse className=""/>
+        <Browse placeholder={'Browse'}/>
     </div>
 
     <div className="p-3 pl-8">

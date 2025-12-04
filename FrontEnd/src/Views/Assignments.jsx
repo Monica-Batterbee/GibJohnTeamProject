@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { getTasks, postTask } from "../Services/TaskService";
-import { all } from "axios";
+import { getAssignments } from "../Services/AssignmentService";
 
-function Assignments({ currentUser, role }) {
+function Assignments({ currentUser, role, setModal }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [assignments, setAssignments] = useState([]);
+
 
   console.log("currentUser:", currentUser);
 
@@ -15,8 +17,9 @@ function Assignments({ currentUser, role }) {
       const teacherTasks = currentTasks.filter((t) => t.teacherID === currentUser.teacherID);
       setTasks(teacherTasks);
     };
-
+    if (role === 'Teacher') {
     fetchTasks();
+    }
   }, []);
 
   // Log every time tasks updates
@@ -25,45 +28,82 @@ function Assignments({ currentUser, role }) {
   }, [tasks]);
 
 
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      const currentAssignments = await getAssignments();
+      const taskIDs = currentAssignments
+      .filter(a => a.studentID === currentUser.studentID)
+      .map(a => a.taskID);
+      const currentTasks = await getTasks();   
+      setAssignments(currentTasks.filter((t) => taskIDs.includes(t.taskID)));
+    };
+    if (role === 'Student'){
+    fetchAssignments();
+    }
+  }, []);
+
+  // Log every time tasks updates
+  useEffect(() => {
+    console.log("assignments", assignments);
+  }, [assignments]);
+
+
   const showTasks = tasks.map((task) => (
-    <div key={task.taskID} className="p-2 my-2 rounded-md bg-blue-100 flex flex-row justify-between">
-      <div>
+    <div key={task.taskID} className="my-2 rounded-md bg-blue-100 flex flex-row justify-between z-0">
+      <div className="p-3">
           <h3 className="text-2xl">{task.name}</h3>
           <div className="bg-white items-center justify-center p-2 rounded-md mt-3">
             <p>{task.description}</p>
           </div>      
       </div>
-      <div className="flex justify-center items-center ml-5">
-        <button>Assign Student</button>
+      <div className="flex justify-center items-center rounded-r-md p-3 bg-green-100 ml-5 cursor-pointer" onClick={() => setModal([true,'assignStudents',task.taskID])}>
+        <button>
+          <i class="fa-solid fa-user"></i>
+          <p>Assign Student</p>
+        </button>
       </div>
     </div>
-
   ));
-
-    return (
+  
+  const showAssignments = assignments.map((a) => {
+    return(
       <>
-      <div className="flex flex-col p-3 ">
-      <h1>Assignments</h1>
-          {role==='Teacher' && <div className="flex flex-row">
-          <div className="flex flex-col border border-gray-500 p-3 rounded-md mt-4 mr-5">
-            <h2 className="text-4xl mb-3">Create New Task</h2>
-            <label className="text-xl">Task Name</label>
-            <input placeholder="Enter the name of the task" value={name} className="border border-gray-300 p-2" onChange={(e) => setName(e.target.value)}/>
-
-            <label className="mt-3 text-xl">Task Description</label>
-            <textarea placeholder="Enter a description for the task" value={description} className="border border-gray-300 p-2" rows={8} cols={75} onChange={(e) => setDescription(e.target.value)}/>
-
-            <button className="bg-blue-100 p-2 mt-3 rounded-md" 
-            onClick={() => postTask({teacherID : currentUser.teacherID, name : name, description : description})}>Add</button>
-          </div>
-          {tasks.length > 0 && <div>
-          <h2 className="text-4xl"> Current Tasks </h2>
-          {showTasks}
-          </div>}
-          </div>}
-          </div>
+      <div className="p-3 shadow-md">
+        <h2>{a.name}</h2>
+      </div>
       </>
     );
+  })
+
+
+
+
+
+  return (
+    <>
+
+      <div className="p-6">
+        <h1>Assignments</h1>
+  
+       {role==='Teacher' && <div className="flex flex-row">
+        <div className="flex flex-col border border-gray-500 p-3 rounded-md mt-4 mr-5">
+           <h2 className="text-4xl mb-3">Create New Task</h2> 
+           <label className="text-xl">Task Name</label> 
+           <input placeholder="Enter the name of the task" value={name} className="border border-gray-300 p-2" 
+           onChange={(e) => setName(e.target.value)}/> <label className="mt-3 text-xl">Task Description</label> 
+           <textarea placeholder="Enter a description for the task" value={description} className="border border-gray-300 p-2" 
+           rows={8} cols={75} onChange={(e) => setDescription(e.target.value)}/> <button className="bg-blue-100 p-2 mt-3 rounded-md" 
+           onClick={() => postTask({teacherID : currentUser.teacherID, name : name, description : description})}>Add</button> </div>
+            {tasks.length > 0 && <div> <h2 className="text-4xl"> Current Tasks </h2> {showTasks} </div>} 
+            </div>} 
+
+          {role === 'Student' && 
+          <div>
+            
+          </div>}
+          </div>   
+    </>
+  );
   }
 
 

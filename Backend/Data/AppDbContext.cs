@@ -15,5 +15,6 @@ namespace Backend.Data
         public DbSet<Student> Student { get; set; }
         public DbSet<TaskItem> Task { get; set; }
         public DbSet<Assignment> Assignment { get; set; }
+         public DbSet<Relationship> Relationship { get; set; }
     }
 }
