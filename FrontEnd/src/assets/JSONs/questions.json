@@ -1,0 +1,130 @@
+{
+  "1": [
+    {
+      "question": "What is a noun?",
+      "options": [
+        "A word that describes a noun",
+        "A comparison using 'like' or 'as'",
+        "A word that names a person, place, or thing"
+      ],
+      "correct": "A word that names a person, place, or thing"
+    },
+    {
+      "question": "What is an adjective?",
+      "options": [
+        "A word that describes a noun",
+        "A doing word",
+        "A group of sentences"
+      ],
+      "correct": "A word that describes a noun"
+    },
+    {
+      "question": "What is a verb?",
+      "options": [
+        "A word with a similar meaning",
+        "An action or doing word",
+        "A comparison using 'like' or 'as'"
+      ],
+      "correct": "An action or doing word"
+    },
+    {
+      "question": "What is a simile?",
+      "options": [
+        "A comparison using 'like' or 'as'",
+        "A comparison saying something is something else",
+        "A word that names a thing"
+      ],
+      "correct": "A comparison using 'like' or 'as'"
+    },
+    {
+      "question": "What is a metaphor?",
+      "options": [
+        "A comparison saying something is something else",
+        "A group of words that make sense",
+        "Words spoken by characters"
+      ],
+      "correct": "A comparison saying something is something else"
+    }
+  ],
+  "2": [
+    {
+      "question": "What is 7 × 6?",
+      "options": ["42", "36", "48"],
+      "correct": "42"
+    },
+    {
+      "question": "What is the value of 12 ÷ 3?",
+      "options": ["4", "6", "3"],
+      "correct": "4"
+    },
+    {
+      "question": "What is the next number in the sequence: 2, 4, 6, 8, ...?",
+      "options": ["9", "10", "12"],
+      "correct": "10"
+    },
+    {
+      "question": "What is the perimeter of a square with side length 5?",
+      "options": ["10", "20", "25"],
+      "correct": "20"
+    },
+    {
+      "question": "What is half of 50?",
+      "options": ["20", "25", "30"],
+      "correct": "25"
+    }
+  ],
+  "3": [
+    {
+      "question": "What is the largest continent?",
+      "options": ["Africa", "Asia", "Europe"],
+      "correct": "Asia"
+    },
+    {
+      "question": "Which ocean is the deepest in the world?",
+      "options": ["Atlantic", "Pacific", "Indian"],
+      "correct": "Pacific"
+    },
+    {
+      "question": "What is the longest river in the world?",
+      "options": ["Nile", "Amazon", "Yangtze"],
+      "correct": "Nile"
+    },
+    {
+      "question": "Which country has the largest population?",
+      "options": ["India", "USA", "China"],
+      "correct": "China"
+    },
+    {
+      "question": "Which desert is the largest in the world?",
+      "options": ["Sahara", "Gobi", "Kalahari"],
+      "correct": "Sahara"
+    }
+  ],
+  "4": [
+    {
+      "question": "Who was the first president of the United States?",
+      "options": ["Abraham Lincoln", "George Washington", "Thomas Jefferson"],
+      "correct": "George Washington"
+    },
+    {
+      "question": "In which year did World War II end?",
+      "options": ["1945", "1939", "1918"],
+      "correct": "1945"
+    },
+    {
+      "question": "Who discovered America?",
+      "options": ["Christopher Columbus", "Marco Polo", "Vasco da Gama"],
+      "correct": "Christopher Columbus"
+    },
+    {
+      "question": "Which empire was ruled by Julius Caesar?",
+      "options": ["Roman Empire", "Ottoman Empire", "British Empire"],
+      "correct": "Roman Empire"
+    },
+    {
+      "question": "What year did the Berlin Wall fall?",
+      "options": ["1989", "1975", "1999"],
+      "correct": "1989"
+    }
+  ]
+}

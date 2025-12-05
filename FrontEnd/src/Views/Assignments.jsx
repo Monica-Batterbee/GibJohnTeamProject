@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { getTasks, postTask } from "../Services/TaskService";
 import { getAssignments } from "../Services/AssignmentService";
-
+import {getTeachers} from "../Services/TeacherService"
 function Assignments({ currentUser, role, setModal }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [tasks, setTasks] = useState([]);
   const [assignments, setAssignments] = useState([]);
+  const [teachers,setTeachers] = useState([]);
+  const [filesByAssignment, setFilesByAssignment] = useState({});
 
 
   console.log("currentUser:", currentUser);
@@ -36,6 +38,8 @@ function Assignments({ currentUser, role, setModal }) {
       .map(a => a.taskID);
       const currentTasks = await getTasks();   
       setAssignments(currentTasks.filter((t) => taskIDs.includes(t.taskID)));
+      const allTeachers = await getTeachers();
+      setTeachers(allTeachers);
     };
     if (role === 'Student'){
     fetchAssignments();
@@ -47,6 +51,17 @@ function Assignments({ currentUser, role, setModal }) {
     console.log("assignments", assignments);
   }, [assignments]);
 
+  const handleFileChange = (taskID, newFiles) => {
+    setFilesByAssignment(prev => {
+      const existing = prev[taskID] ? Array.from(prev[taskID]) : [];
+      const incoming = Array.from(newFiles);
+  
+      return {
+        ...prev,
+        [taskID]: [...existing, ...incoming]
+      };
+    });
+  };
 
   const showTasks = tasks.map((task) => (
     <div key={task.taskID} className="my-2 rounded-md bg-blue-100 flex flex-row justify-between z-0">
@@ -66,11 +81,31 @@ function Assignments({ currentUser, role, setModal }) {
   ));
   
   const showAssignments = assignments.map((a) => {
+    const currentTeacher = teachers.find((t) => t.teacherID === a.teacherID);
     return(
       <>
-      <div className="p-3 shadow-md">
-        <h2>{a.name}</h2>
-      </div>
+    <div className="flex flex-col flex-1 p-3 shadow-md bg-white m-4">
+      <h2 className="text-2xl">{a.name}</h2>
+      <p className="mt-3 text-lg">{a.description}</p>
+
+      <p className="mt-3">
+        Assigned By: {currentTeacher ? `${currentTeacher.fname} ${currentTeacher.sname}` : "Loading..."}
+      </p>
+
+      <p className="mt-3">Deadline - {a.deadline}</p>
+
+
+      <div className="mt-4 p-3 bg-gray-100 rounded-md flex flex-row items-center justify-between">
+            <div>
+              <p>Attach files</p>
+              <input type="file" className="bg-white p-2 rounded-md mr-3" multiple onChange={(e) => handleFileChange(a.taskID, e.target.files)}/>
+            </div>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 cursor-pointer" onClick={() => console.log(filesByAssignment)}>
+              Submit
+            </button>
+        </div>
+
+    </div>
       </>
     );
   })
@@ -96,12 +131,11 @@ function Assignments({ currentUser, role, setModal }) {
            onClick={() => postTask({teacherID : currentUser.teacherID, name : name, description : description})}>Add</button> </div>
             {tasks.length > 0 && <div> <h2 className="text-4xl"> Current Tasks </h2> {showTasks} </div>} 
             </div>} 
-
-          {role === 'Student' && 
-          <div>
+        
             
-          </div>}
-          </div>   
+        {assignments.length > 0 && showAssignments}  
+
+        </div>  
     </>
   );
   }
@@ -110,73 +144,3 @@ function Assignments({ currentUser, role, setModal }) {
 
   export default Assignments
 
-  //       <main className="text-black">
-  
-  //       <div className="mx-auto max-w-3xl">
-  //         <h1 className="text-2xl font-bold pb-5">Assignments Student View</h1>
-  //         <div className="border-2 border-black pt-5 pb-3">
-  //           <h1 className="font-bold">Tasks</h1> {/* Tasks Section */}
-  //           {assignmentsData.assignments.map((assignment, index) => (
-  //             <details
-  //               key={index}
-  //               className="border-2 rounded-2xl border-black m-2 p-2"
-  //             >
-  //               <summary className="cursor-pointer font-bold">
-  //                 {assignment.subject}: Due Date: {assignment.DueDate}
-  //               </summary>
-  //               <p>Description: {assignment.description}</p>
-  //               <div>
-  //                 <button
-  //                   className="border-2 pl-1 pr-1 m-1 border-blue-500 bg-blue-500 text-white rounded-3xl"
-  //                   name="view"
-  //                   id="view"
-  //                   onClick={() => openModal(assignment)}
-  //                 >
-  //                   View
-  //                 </button>
-  //               </div>
-  //             </details>
-  //           ))}
-  //         </div>
-  //       </div>
-  //     </main>
-  
-  
-  // function TeacherUI({ openModal }) {
-  //   return (
-  //     <main className="text-black">
-  //       <div className="mx-auto max-w-3xl">
-  //         <h1 className="text-2xl font-bold pb-5">Assignments Teacher View</h1>
-  //         <div className="border-2 border-black pt-5 pb-3">
-  //           <h1 className="font-bold">Tasks</h1> {/* Tasks Section */}
-  //           {assignmentsData.assignments.map((assignment, index) => (
-  //             <details
-  //               key={index}
-  //               className="border-2 rounded-2xl border-black m-2 p-2"
-  //             >
-  //               <summary className="cursor-pointer font-bold">
-  //                 {assignment.subject}: Due Date: {assignment.DueDate}
-  //               </summary>
-  //               <p>Description: {assignment.description}</p>
-  //               <div>
-  //                 <button
-  //                   className="border-2 pl-1 pr-1 m-1 border-blue-500 bg-blue-500 text-white rounded-3xl"
-  //                   name="view"
-  //                   id="view"
-  //                   onClick={() => openModal(assignment)}
-  //                 >
-  //                   View
-  //                 </button>
-  //                 <button className="border-2 pl-1 pr-1 m-1 border-blue-500 bg-blue-500 text-white rounded-3xl">
-  //                   Hand In
-  //                 </button>
-  //               </div>
-  //             </details>
-  //           ))}
-  //         </div>
-  //       </div>
-  //     </main>
-  //   );
-  // }
-  
-  // export default { UserUI, TeacherUI };

@@ -51,7 +51,7 @@ function Main() {
 
       {openModal[0] === true && <Modal setModal={setModal} modal={openModal} currentUser={currentUser}/>}
 
-      <div className="flex grow flex-row">
+      <div className="flex grow flex-row bg-gray-50">
  
         <SidePanel setPage={setPage} />
         <CurrentPageComponent currentUser={currentUser} role={role} setModal={setModal}/>

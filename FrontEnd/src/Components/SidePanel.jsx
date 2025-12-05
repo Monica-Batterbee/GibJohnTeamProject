@@ -42,7 +42,7 @@ function Panel({setPage}) {
 
     return (
     <>
-      <div className="h-full shadow-md flex flex-col p-2">
+      <div className="h-full shadow-md flex flex-col bg-white p-2">
         {icons}
         <ReactTooltip id="my-tooltip" place="top" effect="solid" />
       </div>    
