@@ -3,6 +3,9 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 function Panel({setPage}) {
 
     const iconObject = {
+      'Home' : {class : 'fa-house',
+                  text: 'Home'},
+
       'Assignments' : {class : "fa-book",
                       text : "Assignments"},
 

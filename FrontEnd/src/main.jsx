@@ -12,7 +12,7 @@ import Chat from './Views/Chat'
 import Feedback from './Views/Feedback'
 import Games from './Views/Games'
 import Notes from './Views/Notes'
-import Progress from './Views/Progress'
+import Tracker from './Views/Progress'
 import Rewards from './Views/Rewards'
 import Modal from  './Components/Modal'
 
@@ -20,8 +20,8 @@ import Modal from  './Components/Modal'
 function Main() {
   const [currentPage, setPage] = useState('Home');
   const [loggedIn, setLoggedIn] = useState(true);
+  // const [currentUser, setCurrentUser] = useState({});
   const [currentUser, setCurrentUser] = useState({studentID: 1, fname: 'test', sname: '1', email: 'test@email', password: 'hello'});
-  //const [currentUser, setCurrentUser] = useState({teacherID: 1, fname: 'test', sname: '1', email: 'test@email', password: 'hello'});
   const [role, setRole] = useState('Student');
   const [openModal, setModal] = useState([false,'']);
 
@@ -33,7 +33,7 @@ function Main() {
     'Rewards' : Rewards,
     'Notes' : Notes,
     'Games' : Games,
-    'Progress' : Progress,
+    'Progress' : Tracker,
     'Chat' : Chat
   };
 
