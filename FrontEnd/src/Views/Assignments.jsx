@@ -64,19 +64,32 @@ function Assignments({ currentUser, role, setModal }) {
   };
 
   const showTasks = tasks.map((task) => (
-    <div key={task.taskID} className="my-2 rounded-md bg-blue-100 flex flex-row justify-between z-0">
-      <div className="p-3">
-          <h3 className="text-2xl">{task.name}</h3>
-          <div className="bg-white items-center justify-center p-2 rounded-md mt-3">
-            <p>{task.description}</p>
-          </div>      
-      </div>
-      <div className="flex justify-center items-center rounded-r-md p-3 bg-green-100 ml-5 cursor-pointer" onClick={() => setModal([true,'assignStudents',task.taskID])}>
+    <div key={task.taskID} className="my-2 rounded-md bg-white shadow-md flexflex-col items-center justify-center z-0">
+
+          
+          <div className="flex flex-col p-3 items-center justify-center border-b border-gray-300">
+            <h3 className="text-2xl mb-3">{task.name}</h3>
+            <div className="flex flex-row">
+              <p className="mr-3">{task.description}</p>
+              <p>Deadline : {task.deadline}</p>
+            </div>
+          </div>     
+          <div  className="p-3 flex items-center flex-row justify-between">
+            <button className="flex flex-row items-center bg-blue-100 p-2 rounded-md cursor-pointer" 
+            onClick={() => setModal([true,'assignStudents',task.taskID])}>
+              <i className="fa-solid fa-circle-user text-xl mr-1"></i>
+              <p>Assign Students</p> 
+            </button>
+            <a className="cursor-pointer">Assigned Students</a>
+          </div>
+          
+
+      {/* <div className="flex justify-center items-center rounded-r-md p-3 bg-green-100 ml-5 cursor-pointer" onClick={() => setModal([true,'assignStudents',task.taskID])}>
         <button>
           <i class="fa-solid fa-user"></i>
           <p>Assign Student</p>
         </button>
-      </div>
+      </div> */}
     </div>
   ));
   
@@ -120,17 +133,22 @@ function Assignments({ currentUser, role, setModal }) {
       <div className="p-6">
         <h1>Assignments</h1>
   
-       {role==='Teacher' && <div className="flex flex-row">
-        <div className="flex flex-col border border-gray-500 p-3 rounded-md mt-4 mr-5">
+       {role==='Teacher' && <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col border border-gray-500 p-3 rounded-md mt-4 mr-5 w-full">
            <h2 className="text-4xl mb-3">Create New Task</h2> 
            <label className="text-xl">Task Name</label> 
            <input placeholder="Enter the name of the task" value={name} className="border border-gray-300 p-2" 
            onChange={(e) => setName(e.target.value)}/> <label className="mt-3 text-xl">Task Description</label> 
            <textarea placeholder="Enter a description for the task" value={description} className="border border-gray-300 p-2" 
            rows={8} cols={75} onChange={(e) => setDescription(e.target.value)}/> <button className="bg-blue-100 p-2 mt-3 rounded-md" 
-           onClick={() => postTask({teacherID : currentUser.teacherID, name : name, description : description})}>Add</button> </div>
-            {tasks.length > 0 && <div> <h2 className="text-4xl"> Current Tasks </h2> {showTasks} </div>} 
+           onClick={() => postTask({teacherID : currentUser.teacherID, name : name, description : description})}>Add</button>
+          </div>
+            {tasks.length > 0 && 
+            <div className="w-full">
+               <h2 className="text-4xl"> Current Tasks </h2>
+                {showTasks} 
             </div>} 
+          </div>} 
         
             
         {assignments.length > 0 && showAssignments}  

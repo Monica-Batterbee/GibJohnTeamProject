@@ -1,12 +1,32 @@
 import React, { useState, useEffect } from "react";
 import questions from "../assets/JSONs/questions.json";
 import { getCourses } from "../Services/CourseService";
+import { postResult } from "../Services/ResultService";
 
-function Test({ courseID }) {
+function Test({ courseID, currentUser }) {
   const [course, setCourse] = useState(null);
   const [testQuestions, setTestQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(null);
+
+  async function submitScore(){
+
+    let total = 0;
+
+    console.log(answers)
+    testQuestions.forEach((q, index) => {
+      if (answers[index] === q.correct) {
+        total++;
+      }
+    });
+    console.log(total)
+
+    setScore(() => total);
+    console.log(score)
+
+
+  }
+
 
   useEffect(() => {
     const load = async () => {
@@ -22,6 +42,20 @@ function Test({ courseID }) {
     load();
   }, [courseID]);
 
+  useEffect(() => {
+    console.log("Score updated:", score);
+
+    const percentage  = (score / testQuestions.length) * 100
+    console.log(percentage)
+    const newResult = {
+      studentID : currentUser.studentID,
+      courseID : parseInt(courseID),
+      score : percentage
+    }
+    console.log(newResult)
+    postResult(newResult);
+    }, [score]);
+
   const handleSelect = (questionIndex, option) => {
     setAnswers((prev) => ({
       ...prev,
@@ -29,19 +63,6 @@ function Test({ courseID }) {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    let total = 0;
-
-    testQuestions.forEach((q, index) => {
-      if (answers[index] === q.correct) {
-        total++;
-      }
-    });
-
-    setScore(total);
-  };
 
   // Prevent crash while loading
   if (!course || testQuestions.length === 0) {
@@ -54,7 +75,7 @@ function Test({ courseID }) {
         {course.courseName} Multiple-Choice Test
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <div  className="space-y-6">
         {testQuestions.map((item, index) => (
           <div key={index}>
             <p className="font-semibold">
@@ -76,13 +97,13 @@ function Test({ courseID }) {
           </div>
         ))}
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 cursor-pointer"
-        >
-          Submit
-        </button>
-      </form>
+      </div>
+      <button onClick={submitScore}
+        type="submit"
+        className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 cursor-pointer"
+      >
+        Submit
+      </button>
 
       {score !== null && (
         <div className="mt-6 p-4 bg-green-100 border-l-4 border-green-600 rounded">
