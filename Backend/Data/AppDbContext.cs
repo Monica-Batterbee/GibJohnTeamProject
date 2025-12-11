@@ -18,5 +18,6 @@ namespace Backend.Data
         public DbSet<Assignment> Assignment { get; set; }
         public DbSet<Relationship> Relationship { get; set; }
         public DbSet<WiderLearning> WiderLearning { get; set; }
+        public DbSet<Notes> Notes { get; set; }
     }
 }

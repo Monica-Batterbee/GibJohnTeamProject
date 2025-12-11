@@ -6,6 +6,7 @@ import { getAssignments, postAssignment } from "../Services/AssignmentService";
 function Modal({setModal, modal, currentUser}) {
     const [studentEmail, setStudentEmail] = useState('');
     const [cantFind, setCantFind] = useState(false);
+    const [message, setMessage] = useState('');
 
     async function makeRelationship() {
         const students = await getStudents();
@@ -25,49 +26,64 @@ function Modal({setModal, modal, currentUser}) {
     }
 
     async function searchRelationships() {
-        const students = await getStudents();
-        const foundStudent = students.find((s) => s.email === studentEmail)
-
-        if (foundStudent) {
-           const relationships = await getRelationships();
-           const foundRelationship = relationships.find((r) => r.teacherID === currentUser.teacherID && r.studentID === foundStudent.studentID)
-
-           if (foundRelationship) {
-                const newAssignment = {
-                    taskID : modal[2],
-                    studentID : foundRelationship.studentID
-                }
-                console.log('json,',newAssignment)
-                console.log(modal)
-                postAssignment(newAssignment)
-           }
-        }
-    }
+      const students = await getStudents();
+      const foundStudent = students.find((s) => s.email === studentEmail);
+  
+      if (!foundStudent) {
+          setMessage("Couldn't find student");
+          return;
+      }
+  
+  
+      const relationships = await getRelationships();
+      const foundRelationship = relationships.find(
+          (r) => r.teacherID === currentUser.teacherID &&
+                 r.studentID === foundStudent.studentID
+      );
+  
+      if (foundRelationship) {
+          const newAssignment = {
+              taskID: modal[2],
+              studentID: foundRelationship.studentID
+          };
+          setMessage('Assigned student')
+          postAssignment(newAssignment);
+      }
+  }
 
     return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center items-center">
 
-    {modal[1] === 'assignStudents' && 
-    <div className="bg-white p-6 rounded-xl max-w-md w-full shadow-xl flex flex-col">
-      <h2 className="text-2xl font-bold mb-3">Assign Student</h2>
-      <label>Find Student</label>
-      <div className="flex items-center w-full gap-2">
-        <input value={studentEmail} onChange={(e) => setStudentEmail(e.target.value)}
-        placeholder="Enter the student's email"
-        className="p-2 border-gray-400 border rounded-md mt-2 flex-1"
-        />
-        <button className="bg-blue-100 p-3 mt-2 rounded-md cursor-pointer" onClick={searchRelationships}>
-        Find student
-        </button>
-        </div>
-      <button
-        onClick={() => setModal([false,''])}
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
-      >
-        Close
-      </button>
-    </div>
-    }
+{modal[1] === 'assignStudents' && 
+<div className="bg-white p-6 rounded-xl max-w-md w-full shadow-xl flex flex-col">
+  <h2 className="text-2xl font-bold mb-3">Assign Student</h2>
+  <label>Find Student</label>
+
+  <div className="flex items-center w-full gap-2">
+    <input
+      value={studentEmail}
+      onChange={(e) => setStudentEmail(e.target.value)}
+      placeholder="Enter the student's email"
+      className="p-2 border-gray-400 border rounded-md mt-2 flex-1"
+    />
+    <button
+      className="bg-blue-100 p-3 mt-2 rounded-md cursor-pointer"
+      onClick={searchRelationships}
+    >
+      Find student
+    </button>
+  </div>
+
+  {message && <b className="text-red-500 text-center mt-2">{message}</b>}
+
+  <button
+    onClick={() => setModal([false,''])}
+    className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
+  >
+    Close
+  </button>
+</div>
+}
 
 {modal[1] === 'addStudent' && 
     <div className="bg-white p-6 rounded-xl max-w-md w-full shadow-xl flex flex-col">

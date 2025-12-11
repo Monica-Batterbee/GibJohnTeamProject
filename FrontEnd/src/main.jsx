@@ -1,15 +1,13 @@
-import { StrictMode, useState } from 'react'
+import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import 'react-tooltip/dist/react-tooltip.css'
 import './index.css'
 import Header from './Components/Header'
-import Home from './Views/Home'
+import StudentHome from './Views/StudentHome'
 import Footer from './Components/Footer'
 import SidePanel from './Components/SidePanel'
 import Assignments from './Views/Assignments'
 import SignUp from './Components/LoginPage'
-import Chat from './Views/Chat'
-import Feedback from './Views/Feedback'
 import Games from './Views/Games'
 import Notes from './Views/Notes'
 import Tracker from './Views/Progress'
@@ -18,23 +16,23 @@ import Modal from  './Components/Modal'
 
 
 function Main() {
-  const [currentPage, setPage] = useState('Home');
+ 
   const [loggedIn, setLoggedIn] = useState(true);
   // const [currentUser, setCurrentUser] = useState({});
   const [currentUser, setCurrentUser] = useState({studentID: 1, fname: 'test', sname: '1', email: 'test@email', password: 'hello'});
   const [role, setRole] = useState('Student');
+  const [currentPage, setPage] = useState(role === 'Student' ? 'StudentHome' : 'TeacherHome');
   const [openModal, setModal] = useState([false,'']);
 
 
+
   const pages = {
-    'Home': Home,
+    'StudentHome': StudentHome,
     'Assignments': Assignments,
-    'Feedback' : Feedback,
     'Rewards' : Rewards,
     'Notes' : Notes,
     'Games' : Games,
     'Progress' : Tracker,
-    'Chat' : Chat
   };
 
 

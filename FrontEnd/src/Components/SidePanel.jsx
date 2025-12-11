@@ -9,9 +9,6 @@ function Panel({setPage}) {
       'Assignments' : {class : "fa-book",
                       text : "Assignments"},
 
-      'Feedback' : {class : "fa-comment",
-                    text: "Feedback Report"},
-
       'Rewards' : {class : "fa-trophy",
                     text : "Rewards"},
 
@@ -24,8 +21,6 @@ function Panel({setPage}) {
       'Progress' : {class : "fa-bars-progress",
                     text: "Progress"},
 
-      'Chat' : {class : "fa-comments",
-                  text: "chat"}
     }
 
     const icons = Object.keys(iconObject).map((iconKey, index) => {
