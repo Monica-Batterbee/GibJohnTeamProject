@@ -28,4 +28,59 @@ public class AssignmentsController : ControllerBase
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetAssignments), new { id = assignment.AssignmentID }, assignment);
     }
+
+    [HttpPut("{id}/currentWork")]
+        public async Task<IActionResult> UpdateCurrentWork(int id, [FromBody] UpdateCurrentWorkDto dto)
+        {
+            if (dto == null)
+                return BadRequest("No data provided.");
+
+            var assignment = await _context.Assignment.FindAsync(id);
+
+            if (assignment == null)
+                return NotFound($"Assignment with ID {id} not found.");
+
+            assignment.CurrentWork = dto.CurrentWork;
+            
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Current work updated successfully." });
+        }
+
+    [HttpPut("{id}/submitted")]
+        public async Task<IActionResult> UpdateSubmit(int id, [FromBody] UpdateSubmitDto dto)
+        {
+            if (dto == null)
+                return BadRequest("No data provided.");
+
+            var assignment = await _context.Assignment.FindAsync(id);
+
+            if (assignment == null)
+                return NotFound($"Assignment with ID {id} not found.");
+
+            assignment.Submitted = dto.Submitted;
+            
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Current work updated successfully." });
+        }
+
+    [HttpPut("{id}/feedback")]
+        public async Task<IActionResult> UpdateFeedback(int id, [FromBody] UpdateGradeFeedback dto)
+        {
+            if (dto == null)
+                return BadRequest("No data provided.");
+
+            var assignment = await _context.Assignment.FindAsync(id);
+
+            if (assignment == null)
+                return NotFound($"Assignment with ID {id} not found.");
+
+            assignment.Grade = dto.Grade;
+            assignment.Feedback = dto.Feedback;
+            
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "feedback updated successfully." });
+        }
 }
