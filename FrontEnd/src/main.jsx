@@ -13,20 +13,20 @@ import Notes from './Views/Notes'
 import Tracker from './Views/Progress'
 import Rewards from './Views/Rewards'
 import Modal from  './Components/Modal'
-
+import TeacherHome from './Views/TeacherHome'
 
 function Main() {
  
   const [loggedIn, setLoggedIn] = useState(true);
   // const [currentUser, setCurrentUser] = useState({});
-  const [currentUser, setCurrentUser] = useState({studentID: 1, fname: 'test', sname: '1', email: 'test@email', password: 'hello'});
-  const [role, setRole] = useState('Student');
+  const [currentUser, setCurrentUser] = useState({teacherID: 1, fname: 'test', sname: '1', email: 'test@email', password: 'hello'});
+  const [role, setRole] = useState('Teacher');
   const [currentPage, setPage] = useState(role === 'Student' ? 'StudentHome' : 'TeacherHome');
-  const [openModal, setModal] = useState([false,'']);
-
+  const [openModal, setModal] = useState([false,'']); 
 
 
   const pages = {
+    'TeacherHome' : TeacherHome,
     'StudentHome': StudentHome,
     'Assignments': Assignments,
     'Rewards' : Rewards,

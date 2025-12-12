@@ -29,20 +29,40 @@ function Assignments({ currentUser, role, setModal }) {
     console.log("Updated tasks state:", tasks);
   }, [tasks]);
 
-
   useEffect(() => {
     const fetchAssignments = async () => {
-      const currentAssignments = await getAssignments();
-      const taskIDs = currentAssignments
-      .filter(a => a.studentID === currentUser.studentID)
-      .map(a => a.taskID);
-      const currentTasks = await getTasks();   
-      setAssignments(currentTasks.filter((t) => taskIDs.includes(t.taskID)));
+      const currentAssignments = await getAssignments();   
+      const studentAssignments = currentAssignments.filter(
+        a => a.studentID === currentUser.studentID
+      );
+  
+      const currentTasks = await getTasks();
+  
+      // Same filter as before
+      const filteredTasks = currentTasks.filter(t =>
+        studentAssignments.some(a => a.taskID === t.taskID)
+      );
+  
+      // Attach assignmentID to each task
+      const tasksWithAssignmentID = filteredTasks.map(task => {
+        const matchingAssignment = studentAssignments.find(
+          a => a.taskID === task.taskID
+        );
+        return {
+          ...task,
+          assignmentID: matchingAssignment.assignmentID,
+          submitted: matchingAssignment.submitted
+        };
+      });
+  
+      setAssignments(tasksWithAssignmentID);
+  
       const allTeachers = await getTeachers();
       setTeachers(allTeachers);
     };
-    if (role === 'Student'){
-    fetchAssignments();
+  
+    if (role === 'Student') {
+      fetchAssignments();
     }
   }, []);
 
@@ -80,21 +100,15 @@ function Assignments({ currentUser, role, setModal }) {
               <i className="fa-solid fa-circle-user text-xl mr-1"></i>
               <p>Assign Students</p> 
             </button>
-            <a className="cursor-pointer">Assigned Students</a>
+            <a className="cursor-pointer" onClick={() => setModal([true,'viewAssigned',task.taskID])}>Assigned Students</a>
           </div>
           
-
-      {/* <div className="flex justify-center items-center rounded-r-md p-3 bg-green-100 ml-5 cursor-pointer" onClick={() => setModal([true,'assignStudents',task.taskID])}>
-        <button>
-          <i class="fa-solid fa-user"></i>
-          <p>Assign Student</p>
-        </button>
-      </div> */}
     </div>
   ));
   
   const showAssignments = assignments.map((a) => {
     const currentTeacher = teachers.find((t) => t.teacherID === a.teacherID);
+    if (!a.submitted){
     return(
       <>
     <div className="flex flex-col flex-1 p-3 shadow-md bg-white m-4">
@@ -110,10 +124,10 @@ function Assignments({ currentUser, role, setModal }) {
 
       <div className="mt-4 p-3 bg-gray-100 rounded-md flex flex-row items-center justify-between">
             <div>
-              <p>Attach files</p>
-              <input type="file" className="bg-white p-2 rounded-md mr-3" multiple onChange={(e) => handleFileChange(a.taskID, e.target.files)}/>
+              <p>Complete Assignment</p>
+              <button className="bg-blue-100 p-2 rounded-md w-full mr-5 cursor-pointer" onClick={() => setModal([true,'openText',a])}>Open text area</button>
             </div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 cursor-pointer" onClick={() => console.log(filesByAssignment)}>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 ml-5 cursor-pointer" onClick={() => console.log(filesByAssignment)}>
               Submit
             </button>
         </div>
@@ -121,6 +135,7 @@ function Assignments({ currentUser, role, setModal }) {
     </div>
       </>
     );
+  }
   })
 
 

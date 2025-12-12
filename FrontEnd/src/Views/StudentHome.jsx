@@ -5,6 +5,7 @@ import Test from "../Components/Test";
 import { getLearning } from "../Services/LearningService";
 import BiologyPage from "./BiologyPage";
 import MathsPage from "./MathsPage";
+import BusinessPage from "./BusinessPage";
 
 function Home({currentUser}) {
     const [courses, setCourses] = useState([]);
@@ -15,7 +16,8 @@ function Home({currentUser}) {
 
     const pages = {
       'Biology' : BiologyPage,
-      'Maths' : MathsPage
+      'Maths' : MathsPage,
+      'Business' : BusinessPage
     }
 
     let CurrentPageComponent = pages[currentPage];
