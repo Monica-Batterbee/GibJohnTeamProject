@@ -51,7 +51,9 @@ function Assignments({ currentUser, role, setModal }) {
         return {
           ...task,
           assignmentID: matchingAssignment.assignmentID,
-          submitted: matchingAssignment.submitted
+          submitted: matchingAssignment.submitted,
+          grade: matchingAssignment.grade,
+          feedback: matchingAssignment.feedback
         };
       });
   
@@ -111,28 +113,60 @@ function Assignments({ currentUser, role, setModal }) {
     if (!a.submitted){
     return(
       <>
-    <div className="flex flex-col flex-1 p-3 shadow-md bg-white m-4">
-      <h2 className="text-2xl">{a.name}</h2>
-      <p className="mt-3 text-lg">{a.description}</p>
+    
+      <div className="mr-16">
+      
+      <div className="flex flex-col flex-1 p-3 shadow-md bg-white my-4">
+        <h2 className="text-2xl">{a.name}</h2>
+        <p className="mt-3 text-lg">{a.description}</p>
 
-      <p className="mt-3">
-        Assigned By: {currentTeacher ? `${currentTeacher.fname} ${currentTeacher.sname}` : "Loading..."}
-      </p>
+        <p className="mt-3">
+          Assigned By: {currentTeacher ? `${currentTeacher.fname} ${currentTeacher.sname}` : "Loading..."}
+        </p>
 
-      <p className="mt-3">Deadline - {a.deadline}</p>
+        <p className="mt-3">Deadline - {a.deadline}</p>
 
 
-      <div className="mt-4 p-3 bg-gray-100 rounded-md flex flex-row items-center justify-between">
-            <div>
-              <p>Complete Assignment</p>
-              <button className="bg-blue-100 p-2 rounded-md w-full mr-5 cursor-pointer" onClick={() => setModal([true,'openText',a])}>Open text area</button>
-            </div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 ml-5 cursor-pointer" onClick={() => console.log(filesByAssignment)}>
-              Submit
-            </button>
-        </div>
+        <div className="mt-4 p-3 bg-gray-100 rounded-md flex flex-row items-center justify-between">
+              <div>
+                <p>Complete Assignment</p>
+                <button className="bg-blue-100 p-2 rounded-md w-full mr-5 cursor-pointer" onClick={() => setModal([true,'openText',a])}>Open text area</button>
+              </div>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 ml-5 cursor-pointer" onClick={() => console.log(filesByAssignment)}>
+                Submit
+              </button>
+          </div>
+      </div>
+      </div>
 
-    </div>
+      </>
+    );
+  }
+  })
+
+  const showFeedback = assignments.map((a) => {
+    const currentTeacher = teachers.find((t) => t.teacherID === a.teacherID);
+    if (a.submitted){
+      console.log(a,'a')
+    return(
+      <>
+    
+      <div className="mr-16">
+      
+      <div className="flex flex-col flex-1 p-3 shadow-md bg-white my-4">
+        <h2 className="text-2xl">{a.name}</h2>
+        <p className="mt-3 text-lg">{a.description}</p>
+
+        <p className="mt-3">
+          Assigned By: {currentTeacher ? `${currentTeacher.fname} ${currentTeacher.sname}` : "Loading..."}
+        </p>
+
+        <p>Grade : {a.grade}</p>
+        <p className="mt-3">Feedback</p>
+        <p className="bg-gray-100 p-2 rounded-md">{a.feedback}</p>
+      </div>
+      </div>
+
       </>
     );
   }
@@ -146,7 +180,7 @@ function Assignments({ currentUser, role, setModal }) {
     <>
 
       <div className="p-6">
-        <h1>Assignments</h1>
+        <h1 className="mb-3">Assignments</h1>
   
        {role==='Teacher' && <div className="flex flex-col lg:flex-row">
         <div className="flex flex-col border border-gray-500 p-3 rounded-md mt-4 mr-5 w-full">
@@ -166,7 +200,20 @@ function Assignments({ currentUser, role, setModal }) {
           </div>} 
         
             
-        {assignments.length > 0 && showAssignments}  
+        {assignments.length > 0 &&
+        <div className="flex flex-col lg:flex-row">
+        <div>
+          <h2 className="text-3xl">Current Assignments</h2>
+          {showAssignments}
+        </div>
+
+        <div>
+        <h2 className="text-3xl">Your feedback</h2>
+        {showFeedback}
+        </div>
+
+        </div>}
+          
 
         </div>  
     </>

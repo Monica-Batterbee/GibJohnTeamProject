@@ -19,15 +19,15 @@ function Main() {
  
   const [loggedIn, setLoggedIn] = useState(true);
   // const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setCurrentUser] = useState({studentID: 1, fname: 'test', sname: '1', email: 'test@email', password: 'hello'});
   const [currentUser, setCurrentUser] = useState({teacherID: 1, fname: 'test', sname: '1', email: 'test@email', password: 'hello'});
   const [role, setRole] = useState('Teacher');
-  const [currentPage, setPage] = useState(role === 'Student' ? 'StudentHome' : 'TeacherHome');
+  const [currentPage, setPage] = useState('Home');
   const [openModal, setModal] = useState([false,'']); 
 
 
   const pages = {
-    'TeacherHome' : TeacherHome,
-    'StudentHome': StudentHome,
+    'Home' : role === 'Teacher' ? TeacherHome : StudentHome,
     'Assignments': Assignments,
     'Rewards' : Rewards,
     'Notes' : Notes,
@@ -51,7 +51,7 @@ function Main() {
 
       <div className="flex grow flex-row bg-gray-50">
  
-        <SidePanel setPage={setPage} />
+        <SidePanel setPage={setPage} role={role}/>
         <CurrentPageComponent currentUser={currentUser} role={role} setModal={setModal}/>
 
       </div>
