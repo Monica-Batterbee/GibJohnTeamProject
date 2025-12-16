@@ -117,7 +117,11 @@ function Modal({setModal, modal, currentUser}) {
 
 {modal[1] === 'assignStudents' && 
 <div className="bg-white p-6 rounded-xl max-w-md w-full shadow-xl flex flex-col">
-  <h2 className="text-2xl font-bold mb-3">Assign Student</h2>
+  <div className="flex flex-row justify-between">
+    <h2 className="text-2xl font-bold mb-3">Assign Student</h2>
+    <i className="fa-solid fa-x cursor-pointer" onClick={() => setModal([false,''])}></i>
+  </div> 
+  
   <label>Find Student</label>
 
   <div className="flex items-center w-full gap-2">
@@ -148,7 +152,11 @@ function Modal({setModal, modal, currentUser}) {
 
 {modal[1] === 'addStudent' && 
     <div className="bg-white p-6 rounded-xl max-w-md w-full shadow-xl flex flex-col">
-      <h2 className="text-2xl font-bold mb-3">Add Student</h2>
+        <div className="flex flex-row justify-between">
+        <h2 className="text-2xl font-bold mb-3">Assign Student</h2>
+        <i className="fa-solid fa-x cursor-pointer" onClick={() => setModal([false,''])}></i>
+      </div> 
+     
 
       <label>Student email</label>
     <div className="flex items-center w-full gap-2">
@@ -191,8 +199,11 @@ function Modal({setModal, modal, currentUser}) {
       }
     {modal[1] === 'viewAssigned' && 
       <div className="bg-white p-3 rounded-md">
-        <h2 className="text-3xl">Assigned Students</h2>
-
+        
+        <div className="flex flex-row justify-between">
+        <h2 className="text-3xl mr-3">Assigned Students</h2>
+          <i className="fa-solid fa-x cursor-pointer" onClick={() => setModal([false,''])}></i>
+          </div>  
         {studentAssignments.map((item, index) => (
           <div key={index} className="flex flex-row justify-between my-2">
             <p>{item.studentName}</p>
@@ -209,7 +220,10 @@ function Modal({setModal, modal, currentUser}) {
 
       {modal[1] === 'viewWork' &&
         <div className="bg-white rounded-md p-3">
+          <div className="flex flex-row justify-between">
           <h2 className="text-3xl mb-3">Student's work</h2>
+          <i className="fa-solid fa-x cursor-pointer" onClick={() => setModal([false,''])}></i>
+          </div>
           <p className="bg-gray-200 p-3 rounded-md">{modal[2].currentWork}</p>
           <div className="flex flex-col mt-4">
             <label>Enter Grade</label>

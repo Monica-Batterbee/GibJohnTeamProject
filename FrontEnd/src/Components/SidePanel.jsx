@@ -1,8 +1,10 @@
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
-function Panel({setPage}) {
+function Panel({setPage, role}) {
+  let iconObject = {}
 
-    const iconObject = {
+    if (role === 'Student'){
+      iconObject = {
       'Home' : {class : 'fa-house',
                   text: 'Home'},
 
@@ -22,6 +24,20 @@ function Panel({setPage}) {
                     text: "Progress"},
 
     }
+  }
+  else {
+      iconObject = {
+      'Home' : {class : 'fa-house',
+                  text: 'Home'},
+
+      'Assignments' : {class : "fa-book",
+                      text : "Assignments"},
+
+      'Progress' : {class : "fa-bars-progress",
+                    text: "Learner Progress"},
+
+    }
+  }
 
     const icons = Object.keys(iconObject).map((iconKey, index) => {
       const iconInfo = iconObject[iconKey];  // <-- get the actual object
