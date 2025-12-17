@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Backend.Data;
 using Backend.Models;
 
+//Assignments controller
 [Route("api/[controller]")]
 [ApiController]
 public class AssignmentsController : ControllerBase
@@ -14,6 +15,7 @@ public class AssignmentsController : ControllerBase
         _context = context;
     }
 
+    //Get endpoint (Retrieves all data)
     [HttpGet]
     public async Task<IActionResult> GetAssignments()
     {
@@ -21,6 +23,7 @@ public class AssignmentsController : ControllerBase
         return Ok(assignments);
     }
 
+    //Post endpoint, adds a new assignment record
     [HttpPost]
     public async Task<IActionResult> AddAssignment([FromBody] Assignment assignment)
     {
@@ -29,6 +32,7 @@ public class AssignmentsController : ControllerBase
         return CreatedAtAction(nameof(GetAssignments), new { id = assignment.AssignmentID }, assignment);
     }
 
+    //Updates record when student enters work 
     [HttpPut("{id}/currentWork")]
         public async Task<IActionResult> UpdateCurrentWork(int id, [FromBody] UpdateCurrentWorkDto dto)
         {
@@ -47,6 +51,7 @@ public class AssignmentsController : ControllerBase
             return Ok(new { message = "Current work updated successfully." });
         }
 
+    //Updates record when student submits work (Sets submit bool to true)
     [HttpPut("{id}/submitted")]
         public async Task<IActionResult> UpdateSubmit(int id, [FromBody] UpdateSubmitDto dto)
         {
@@ -65,6 +70,7 @@ public class AssignmentsController : ControllerBase
             return Ok(new { message = "Current work updated successfully." });
         }
 
+    //Updates record when teacher adds grade and feedback
     [HttpPut("{id}/feedback")]
         public async Task<IActionResult> UpdateFeedback(int id, [FromBody] UpdateGradeFeedback dto)
         {

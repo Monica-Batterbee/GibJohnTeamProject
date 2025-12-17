@@ -3,19 +3,30 @@ import { getCourses } from "../Services/CourseService";
 import { useEffect, useState } from "react";
 import Test from "../Components/Test";
 
-function Tracker({ currentUser }) {
+function Tracker({currentUser, role, modal, setPage, setLearner, learner}) {
     const [results, setResults] = useState([]);
     const [courses, setCourses] = useState([]);
     const [selectedCourseID, setSelectedCourseID] = useState(null);
   
     useEffect(() => {
+      console.log(role)
+      console.log(learner)
+      let filteredResults = []
       async function loadData() {
         const allCourses = await getCourses();
         const allResults = await getResults();
-  
-        const filteredResults = allResults.filter(
+
+        if (role === 'Student'){
+        filteredResults = allResults.filter(
           (r) => r.studentID === currentUser.studentID
         );
+      }
+
+      else {
+        filteredResults = allResults.filter(
+          (r) => r.studentID === learner.studentID
+        );
+      }
   
         setCourses(allCourses);
         setResults(filteredResults);
@@ -30,6 +41,8 @@ function Tracker({ currentUser }) {
     <>
     {!selectedCourseID && <div className="p-2 m-2">
     <h1 className="text-2xl font-bold mb-4">Progress Tracker</h1>
+
+    {role === 'Teacher' && <p className="font-bold ml-3">Results for {learner.fname}  {learner.sname}</p>}
 
     <div className="p-2 m-2 border-2 rounded-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
@@ -69,7 +82,7 @@ function Tracker({ currentUser }) {
                 <h3 className="font-semibold">Highest score:</h3>
                 <p>{max}%</p>
 
-                {max !== 100 && total > 0 &&<button className="bg-blue-100 px-5 py-1 rounded-md cursor-pointer mt-2"
+                {max !== 100 && total > 0 && role==='Student' && <button className="bg-blue-100 px-5 py-1 rounded-md cursor-pointer mt-2"
                 onClick={() => setSelectedCourseID(course.courseID)} >Retake test</button>}
             </div>
             </div>

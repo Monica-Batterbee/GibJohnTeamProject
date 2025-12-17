@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Backend.Models;
 
+//DB context
 namespace Backend.Data
 {
     public class AppDbContext : DbContext
@@ -9,7 +10,7 @@ namespace Backend.Data
             : base(options)
         {
         }
-
+        //The different tables that are stored within the database
         public DbSet<Course> Course { get; set; }
         public DbSet<Teacher> Teacher { get; set; }    
         public DbSet<Student> Student { get; set; }

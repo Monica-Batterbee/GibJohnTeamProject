@@ -3,7 +3,7 @@ import { getTasks } from "../Services/TaskService.js";
 import { getRelationships } from "../Services/RelationshipService";
 import { getStudents } from "../Services/StudentService";
 
-const TeacherHome = ({currentUser}) => {
+function TeacherHome({currentUser, role, modal, setPage, setLearner}) {
   const [assignments, setAssignments] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [students,setStudents] = useState([])
@@ -44,6 +44,12 @@ const TeacherHome = ({currentUser}) => {
     setShowAll((prev) => !prev);
   };
 
+  function openProgress(s) {
+    console.log('s',s)
+    setLearner(s)
+    setPage('Progress')
+  }
+
 
   const cards = [
     {
@@ -74,7 +80,7 @@ const TeacherHome = ({currentUser}) => {
           students.map((s) => (
             <div className="flex flex-row justify-between w-full items-center my-2 border-b border-gray-300 p-2">
               <p key={s.studentID}>{s.fname}  {s.sname}</p>
-              <button className="bg-blue-100 rounded-md px-4 py-1 ml-3 cursor-pointer">View Progress</button>
+              <button className="bg-blue-100 rounded-md px-4 py-1 ml-3 cursor-pointer" onClick={() => openProgress(s)}>View Progress</button>
             </div>
           ))
         }
@@ -82,7 +88,7 @@ const TeacherHome = ({currentUser}) => {
     )},
     { title: "Student Points", content: (
       <>
-        <button className="bg-blue-100 rounded-md p-5 ml-3 cursor-pointer">View Student Dashboard</button>
+        <button className="bg-blue-100 rounded-md p-5 ml-3 cursor-pointer" onClick={() => setPage('StudentDashboard')}>View Student Dashboard</button>
       
       </>
     )},

@@ -1,5 +1,6 @@
 namespace Backend.Models
 {
+    //Example data model - stores the data found in the table and the data type
     public class Assignment
     {
         public int AssignmentID { get; set; }
