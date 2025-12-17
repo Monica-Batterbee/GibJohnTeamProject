@@ -2,7 +2,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 function Panel({setPage, role}) {
   let iconObject = {}
-
+    //Object sets the text and class for each icon in side panel
     if (role === 'Student'){
       iconObject = {
       'Home' : {class : 'fa-house',
@@ -31,10 +31,7 @@ function Panel({setPage, role}) {
                   text: 'Home'},
 
       'Assignments' : {class : "fa-book",
-                      text : "Assignments"},
-
-      'Progress' : {class : "fa-bars-progress",
-                    text: "Learner Progress"},
+                      text : "Assignments"}
 
     }
   }
@@ -43,6 +40,7 @@ function Panel({setPage, role}) {
       const iconInfo = iconObject[iconKey];  // <-- get the actual object
     
       return (
+        //Sets each icon and gives it a tool tip
       <i
         key={index}
         className={`fa-solid ${iconInfo.class} text-xl text-gray-500 p-1 mb-3 cursor-pointer`}

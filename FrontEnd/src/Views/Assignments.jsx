@@ -181,15 +181,20 @@ function Assignments({ currentUser, role, setModal }) {
 
       <div className="p-6">
         <h1 className="mb-3">Assignments</h1>
-  
        {role==='Teacher' && <div className="flex flex-col lg:flex-row">
-        <div className="flex flex-col border border-gray-500 p-3 rounded-md mt-4 mr-5 w-full">
+        <div className="flex flex-col justify-between bg-white shadow-xl p-3 rounded-md mt-4 mr-5 w-full">
            <h2 className="text-4xl mb-3">Create New Task</h2> 
-           <label className="text-xl">Task Name</label> 
-           <input placeholder="Enter the name of the task" value={name} className="border border-gray-300 p-2" 
-           onChange={(e) => setName(e.target.value)}/> <label className="mt-3 text-xl">Task Description</label> 
-           <textarea placeholder="Enter a description for the task" value={description} className="border border-gray-300 p-2" 
-           rows={8} cols={75} onChange={(e) => setDescription(e.target.value)}/> <button className="bg-blue-100 p-2 mt-3 rounded-md" 
+           <div className="flex flex-col">
+              <label className="text-xl">Task Name</label> 
+              <input placeholder="Enter the name of the task" value={name} className="border rounded-md mt-2 border-gray-300 p-2" 
+              onChange={(e) => setName(e.target.value)}/>            
+            </div>
+            <div>
+              <label className="mt-3 text-xl">Task Description</label>           
+              <textarea placeholder="Enter a description for the task" value={description} className="border rounded-md mt-2 border-gray-300 p-2" 
+            rows={8} cols={75} onChange={(e) => setDescription(e.target.value)}/>
+            </div>
+            <button className="bg-blue-100 p-2 mt-3 rounded-md" 
            onClick={() => postTask({teacherID : currentUser.teacherID, name : name, description : description})}>Add</button>
           </div>
             {tasks.length > 0 && 
